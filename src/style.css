@@ -1,96 +1,260 @@
+/* ===== БАЗА ===== */
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  --brand: #1e88e5;
+  --text: #111;
+  --muted: #6b7280;
+  --bg: #fff;
+  --radius: 12px;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Контейнерні ширини */
+  --container: 100%;
+  --container-max: 1200px;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
-a:hover {
-  color: #535bf2;
+html,
+body {
+  height: 100%;
 }
-
 body {
   margin: 0;
+  font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto,
+    "Helvetica Neue", Arial;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.5;
+}
+
+/* Утиліти */
+.hidden {
+  display: none !important;
+}
+.container {
+  width: var(--container);
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+
+/* Кнопка */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  font-weight: 700;
+  border-radius: var(--radius);
+  background: var(--brand);
+  color: #fff;
+  text-decoration: none;
+  box-shadow: var(--shadow);
+  transition: transform 0.12s, opacity 0.12s;
+}
+.btn:hover {
+  transform: translateY(-1px);
+}
+.btn:active {
+  transform: none;
+  opacity: 0.9;
+}
+
+/* ===== HEADER (мобільна версія) ===== */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: saturate(180%) blur(8px);
+  border-bottom: 1px solid #eee;
+}
+.header-row {
+  min-height: 64px;
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  align-items: center;
+  justify-content: space-between;
 }
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vanilla:hover {
-  filter: drop-shadow(0 0 2em #f7df1eaa);
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+/* Бургер */
+.burger {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 36px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  background: transparent;
   cursor: pointer;
-  transition: border-color 0.25s;
 }
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+.burger span {
+  height: 3px;
+  width: 100%;
+  background: #222;
+  border-radius: 3px;
 }
 
-@media (prefers-color-scheme: light) {
+/* Навігація — мобільно прихована */
+.nav {
+  position: fixed;
+  inset: auto 0 0 0; /* знизу як drawer */
+  transform: translateY(100%);
+  transition: transform 0.2s ease;
+  background: #fff;
+  border-top: 1px solid #eee;
+  padding: 16px;
+}
+.nav--open {
+  transform: translateY(0);
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.nav-list a {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 600;
+}
+.nav-list a:hover {
+  color: var(--brand);
+}
+
+/* ===== HERO (мобільно) ===== */
+.hero {
+  padding: 72px 0 88px;
+  background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+}
+.hero-title {
+  font-size: clamp(26px, 7vw, 36px);
+  line-height: 1.15;
+  margin: 0 0 12px;
+}
+.hero-text {
+  color: var(--muted);
+  margin: 0 0 24px;
+  max-width: 640px;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  border-top: 1px solid #eee;
+  background: #fafafa;
+  color: #4b5563;
+}
+.footer-row {
+  padding: 24px 0;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.footer-credit a {
+  color: var(--brand);
+  text-decoration: none;
+}
+.footer-credit a:hover {
+  text-decoration: underline;
+}
+
+/* ===== АДАПТИВНІ БРЕЙКПОІНТИ ===== */
+
+/* >= 834px (tablet) */
+@media (min-width: 834px) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    --container-max: 1100px;
   }
-  a:hover {
-    color: #747bff;
+
+  /* Хедер: показуємо горизонтальне меню, приховуємо бургер */
+  .burger {
+    display: none;
   }
-  button {
-    background-color: #f9f9f9;
+  .nav {
+    position: static;
+    transform: none;
+    background: transparent;
+    border: 0;
+    padding: 0;
+  }
+  .nav-list {
+    flex-direction: row;
+    gap: 24px;
+  }
+
+  /* Герой: збільшуємо відступи і розмір заголовка */
+  .hero {
+    padding: 96px 0 112px;
+  }
+  .hero-title {
+    font-size: clamp(32px, 4vw, 44px);
+  }
+}
+
+/* >= 1440px (desktop) */
+@media (min-width: 1440px) {
+  :root {
+    --container-max: 1280px;
+  }
+
+  .nav-list {
+    gap: 32px;
+  }
+  .hero {
+    padding: 120px 0 140px;
+  }
+  .hero-title {
+    font-size: 48px;
+  }
+}
+
+/* ===== ДРІБНІ УТИЛІТИ ДЛЯ ВЕРСТКИ ===== */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+.only-mobile {
+  display: block;
+}
+.only-desktop {
+  display: none;
+}
+@media (min-width: 834px) {
+  .only-mobile {
+    display: none !important;
+  }
+  .only-desktop {
+    display: block !important;
+  }
+}
+
+/* Простий грід, якщо треба швидко робити карточки */
+.grid {
+  display: grid;
+  gap: 16px;
+}
+@media (min-width: 834px) {
+  .grid--2-md {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1440px) {
+  .grid--3-lg {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }

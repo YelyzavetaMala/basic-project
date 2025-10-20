@@ -1,13 +1,66 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>vite-project</title>
+    <!-- Шрифти -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Нормалізація -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/modern-normalize/modern-normalize.css"
+    />
   </head>
   <body>
-    <div id="app"></div>
+    <header class="header">
+      <div class="container header-row">
+        <a class="logo" href="/">LOGO</a>
+        <button class="burger" aria-label="Menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="nav">
+          <ul class="nav-list">
+            <li><a href="#about">Про нас</a></li>
+            <li><a href="#services">Послуги</a></li>
+            <li><a href="#contacts">Контакти</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container">
+        <h1 class="hero-title">Hero title</h1>
+        <p class="hero-text">Hero text</p>
+        <a class="btn" href="#contacts">Зв’язатися</a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container footer-row">
+        <p>© <span id="year"></span> Назва компанії. Усі права захищені.</p>
+        <p class="footer-credit">
+          Зроблено з ❤️ by
+          <a
+            href="https://github.com/YelyzavetaMala"
+            target="_blank"
+            rel="noopener"
+            >Liza</a
+          >
+        </p>
+      </div>
+    </footer>
+
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
