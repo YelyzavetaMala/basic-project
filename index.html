@@ -23,7 +23,12 @@
     <header class="header">
       <div class="container header-row">
         <a class="logo" href="/">LOGO</a>
-        <button class="burger" aria-label="Menu" aria-expanded="false">
+        <button
+          class="burger"
+          aria-label="Menu"
+          aria-expanded="false"
+          data-modal-open="modal-menu"
+        >
           <span></span><span></span><span></span>
         </button>
         <nav class="nav">
@@ -36,7 +41,6 @@
       </div>
     </header>
 
-    <!-- Hero -->
     <section class="hero">
       <div class="container">
         <h1 class="hero-title">Hero title</h1>
@@ -45,7 +49,6 @@
       </div>
     </section>
 
-    <!-- Footer -->
     <footer class="footer">
       <div class="container footer-row">
         <p>© <span id="year"></span> Назва компанії. Усі права захищені.</p>
@@ -60,6 +63,19 @@
         </p>
       </div>
     </footer>
+
+    <!-- Модалка меню -->
+    <div class="modal hidden" id="modal-menu">
+      <div class="modal-overlay" data-modal-overlay></div>
+      <div class="modal-content">
+        <button class="close-modal" data-modal-close>✖</button>
+        <ul class="menu-nav-modal">
+          <li><a class="menu-link-modal" href="#about">Про нас</a></li>
+          <li><a class="menu-link-modal" href="#contacts">Наші контакти</a></li>
+          <li><a class="menu-link-modal" href="#services">Послуги</a></li>
+        </ul>
+      </div>
+    </div>
 
     <script type="module" src="/src/main.js"></script>
   </body>

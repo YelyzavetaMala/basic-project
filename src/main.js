@@ -1,28 +1,88 @@
 import "./style.css";
 
-// Рік у футері
-const yearEl = document.getElementById("year");
-if (yearEl) yearEl.textContent = new Date().getFullYear();
+// src/js/modal.js
+document.addEventListener("DOMContentLoaded", () => {
+  // Підтримуємо і data-атрибути, і старі класи для сумісності
+  const openTriggers = document.querySelectorAll(
+    "[data-modal-open], .open-modal"
+  );
+  const modals = document.querySelectorAll(".modal");
 
-// Плавний скрол
-document.querySelectorAll('a[href^="#"]').forEach((a) => {
-  a.addEventListener("click", (e) => {
-    const id = a.getAttribute("href");
-    if (!id || id === "#") return;
-    const el = document.querySelector(id);
-    if (!el) return;
-    e.preventDefault();
-    el.scrollIntoView({ behavior: "smooth", block: "start" });
+  // Відкриття
+  openTriggers.forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      // Пріоритет: data-modal-open="id"; fallback: якщо тригер поруч з модалкою
+      const targetId = trigger.getAttribute("data-modal-open");
+      let modal = targetId ? document.getElementById(targetId) : null;
+
+      if (!modal) {
+        // fallback: шукаємо першу модалку в документі (для дуже простих кейсів)
+        modal = document.querySelector(".modal");
+      }
+      if (!modal) return;
+
+      openModal(modal, trigger);
+    });
   });
+
+  // Закриття по кліку на overlay/×/лінк, по Esc
+  modals.forEach((modal) => {
+    const overlay =
+      modal.querySelector("[data-modal-overlay]") ||
+      modal.querySelector(".modal-overlay");
+
+    // кнопки закриття — data-атрибут або клас
+    const closeBtns = modal.querySelectorAll(
+      "[data-modal-close], .close-modal"
+    );
+
+    closeBtns.forEach((btn) => {
+      btn.addEventListener("click", () => closeModal(modal));
+    });
+
+    if (overlay) {
+      overlay.addEventListener("click", () => closeModal(modal));
+    }
+
+    // клік по лінку всередині модалки — теж закриває
+    modal.addEventListener("click", (e) => {
+      const link = e.target.closest("a[href]");
+      if (link) closeModal(modal);
+    });
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      document.querySelectorAll(".modal:not(.hidden)").forEach(closeModal);
+    }
+  });
+
+  function openModal(modal, triggerEl = null) {
+    modal.classList.remove("hidden");
+    document.body.classList.add("body-no-scroll");
+    if (triggerEl?.setAttribute)
+      triggerEl.setAttribute("aria-expanded", "true");
+
+    // Фокус у модалку (доступність)
+    const focusableSel =
+      'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    const panel = modal.querySelector(".modal-content") || modal;
+    const firstFocusable = panel.querySelector(focusableSel) || panel;
+    setTimeout(() => firstFocusable.focus(), 0);
+  }
+
+  function closeModal(modal) {
+    if (!modal || modal.classList.contains("hidden")) return;
+    modal.classList.add("hidden");
+
+    // якщо це була остання відкрита модалка — повертаємо скрол
+    const stillOpen = document.querySelectorAll(".modal:not(.hidden)").length;
+    if (!stillOpen) {
+      document.body.classList.remove("body-no-scroll");
+    }
+
+    // aria-expanded у зв'язаного тригера
+    const trigger = document.querySelector(`[data-modal-open="${modal.id}"]`);
+    if (trigger?.setAttribute) trigger.setAttribute("aria-expanded", "false");
+  }
 });
-
-// Мобільне меню
-const burger = document.querySelector(".burger");
-const nav = document.querySelector(".nav");
-if (burger && nav) {
-  burger.addEventListener("click", () => {
-    nav.classList.toggle("nav--open");
-    const opened = nav.classList.contains("nav--open");
-    burger.setAttribute("aria-expanded", opened ? "true" : "false");
-  });
-}
