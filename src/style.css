@@ -123,6 +123,24 @@ body {
   touch-action: none;
 }
 
+/* слайдер */
+.swiper {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.swiper-slide {
+  background: #eee;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 280px; /* будь-яка висота */
+}
+
 /* ===== HEADER (мобільна версія) ===== */
 .header {
   position: sticky;
@@ -177,7 +195,7 @@ body {
 
   .nav-list {
     display: flex;
-    gap: 32px; /* відстань між пунктами */
+    gap: 32px;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -199,7 +217,7 @@ body {
   }
 }
 
-/* ===== HERO (мобільно) ===== */
+/* ===== HERO ===== */
 .hero {
   padding: 72px 0 88px;
   background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
@@ -294,21 +312,5 @@ img {
   }
   .only-desktop {
     display: block !important;
-  }
-}
-
-/* Простий грід, якщо треба швидко робити карточки */
-.grid {
-  display: grid;
-  gap: 16px;
-}
-@media (min-width: 834px) {
-  .grid--2-md {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-@media (min-width: 1440px) {
-  .grid--3-lg {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }

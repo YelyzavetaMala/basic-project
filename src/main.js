@@ -1,4 +1,54 @@
 import "./style.css";
+import Swiper from "swiper";
+import {
+  Navigation,
+  Pagination,
+  Scrollbar,
+  Keyboard,
+  Mousewheel,
+} from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+function initResponsiveSwiper(selector, breakpointsConfig) {
+  const container = document.querySelector(selector);
+  const slidesCount = container.querySelectorAll(".swiper-slide").length;
+
+  const screenWidth = window.innerWidth;
+  let slidesPerView = 1;
+
+  if (screenWidth >= 1440 && breakpointsConfig[1440]) {
+    slidesPerView = breakpointsConfig[1440].slidesPerView;
+  } else if (screenWidth >= 834 && breakpointsConfig[834]) {
+    slidesPerView = breakpointsConfig[834].slidesPerView;
+  } else if (breakpointsConfig[375]) {
+    slidesPerView = breakpointsConfig[375].slidesPerView;
+  }
+
+  if (slidesCount <= slidesPerView) {
+    container.classList.add("hide-swiper-nav");
+  }
+
+  return new Swiper(selector, {
+    modules: [Pagination, Navigation],
+    loop: true,
+    breakpoints: breakpointsConfig,
+    pagination: {
+      el: `${selector} .swiper-pagination`,
+      clickable: true,
+    },
+    navigation: {
+      nextEl: `${selector} .swiper-button-next`,
+      prevEl: `${selector} .swiper-button-prev`,
+    },
+  });
+}
+initResponsiveSwiper(".swiper-one", {
+  375: { slidesPerView: 1, spaceBetween: 16 },
+  834: { slidesPerView: 2, spaceBetween: 24 },
+  1440: { slidesPerView: 3, spaceBetween: 32 },
+});
 
 // src/js/modal.js
 document.addEventListener("DOMContentLoaded", () => {
